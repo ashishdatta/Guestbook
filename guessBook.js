@@ -3,6 +3,7 @@ var app = express();
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('devicesDb');
 var date = new Date();
+var test = new Date().toJSON().slice(0,10)
 
 db.run("CREATE TABLE IF NOT EXISTS devices (macaddr TEXT, devicename TEXT, devicedate TEXT )");
 
@@ -33,7 +34,7 @@ var listDevices = {
 			// console. log('adding device: ',device);
 			this.addDevice(device);
 			var stmt = db.prepare("INSERT INTO devices (macaddr, devicename, devicedate) VALUES (? ,? , ?)");
-			//stmt.run(words[1], words[2], date.getTime());
+			//stmt.run(words[1], words[2], Math.round(new Date().getTime()/1000.0));
 			stmt.finalize();
 		}
 	},
